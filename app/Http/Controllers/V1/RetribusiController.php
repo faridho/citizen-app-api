@@ -65,5 +65,76 @@ class RetribusiController extends Controller
         return $result;
     }
 
+    public function getRetribusiKebersihanID($id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = RetribusiModel::getDataRetribusiKebersihanID($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function insertRetribusiKeamanan(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'kepalaKeluarga' => 'required',
+            'bulan' => 'required|numeric',
+            'tahun' => 'required|numeric',
+            'nominal' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            $status = 'Validasi';
+            $message = $validator->messages();
+            $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+        }else{
+            $store = array (
+                'kepala_keluarga' => intval($request->input('kepalaKeluarga')),
+                'bulan' => intval($request->input('bulan')),
+                'tahun' => intval($request->input('tahun')),
+                'nominal' => intval(str_replace( ',', '', $request->input('nominal'))),
+                'status' => 1
+            );
+            
+            $request = RetribusiModel::insertRetKeamanan($store);
+            if($request) {
+                $status = true;
+                $message = 'Retribusi Keamanan Berhasil';
+                $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+            }else {
+                $status = false;
+                $message = 'Gagal Melakukan Retribusi Keamanan';
+                $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+            }
+        }
+
+        $response = null;
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getRetribusiKeamanan() {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = RetribusiModel::getDataRetribusiKeamanan();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getRetribusiKeamananID($id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = RetribusiModel::getDataRetribusiKeamananID($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
     
 }

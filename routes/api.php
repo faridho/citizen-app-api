@@ -62,6 +62,10 @@ $router->group(
         function ($router) {
             $router->post('/kebersihan', 'RetribusiController@insertRetribusiKebersihan');
             $router->get('/kebersihan', 'RetribusiController@getRetribusiKebersihan');
+            $router->get('/kebersihan/{id}', 'RetribusiController@getRetribusiKebersihanID');
+            $router->post('/keamanan', 'RetribusiController@insertRetribusiKeamanan');
+            $router->get('/keamanan', 'RetribusiController@getRetribusiKeamanan');
+            $router->get('/keamanan/{id}', 'RetribusiController@getRetribusiKeamananID');
         }
     );
 });
