@@ -38,4 +38,30 @@ $router->group(
             $router->post('/login', 'AuthController@getLogin');
         }
     );
+
+    //Master
+    $router->group(
+        [
+            'prefix' => 'master'
+        ],
+        function ($router) {
+            $router->post('/insertkepalakeluarga', 'MasterController@insertKepalaKeluarga');
+            $router->get('/datakepalakeluarga', 'MasterController@getKepalaKeluarga');
+            $router->get('/datakepalakeluarga/{id}', 'MasterController@getKepalaKeluargaID');
+            $router->post('/insertwarga', 'MasterController@insertWarga');
+            $router->get('/datawarga', 'MasterController@getWarga');
+            $router->get('/datawarga/{id}', 'MasterController@getWargaID');
+        }
+    );
+
+    //Retribusi
+    $router->group(
+        [
+            'prefix' => 'retribusi'
+        ],
+        function ($router) {
+            $router->post('/kebersihan', 'RetribusiController@insertRetribusiKebersihan');
+            $router->get('/kebersihan', 'RetribusiController@getRetribusiKebersihan');
+        }
+    );
 });
