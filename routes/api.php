@@ -68,4 +68,16 @@ $router->group(
             $router->get('/keamanan/{id}', 'RetribusiController@getRetribusiKeamananID');
         }
     );
+
+    //Temporary Netizen
+    $router->group(
+        [
+            'prefix' => 'temporary'
+        ],
+        function ($router) {
+            $router->post('/insert', 'TemporaryController@insertTemporary');
+            $router->get('/get', 'TemporaryController@getTemporary');
+            $router->get('/get/{id}', 'TemporaryController@getTemporaryDetail');
+        }
+    );
 });
