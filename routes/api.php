@@ -80,4 +80,16 @@ $router->group(
             $router->get('/get/{id}', 'TemporaryController@getTemporaryDetail');
         }
     );
+
+    //Permintaan Dokumen
+    $router->group(
+        [
+            'prefix' => 'document'
+        ],
+        function ($router) {
+            $router->post('/insert', 'DocumentController@insertDocument');
+            $router->get('/getall/{id}', 'DocumentController@getDocumentAll');
+            $router->get('/getrow/{tab}/{id}', 'DocumentController@getDocumentID');
+        }
+    );
 });
