@@ -19,6 +19,7 @@ class MasterController extends Controller
     public function insertKepalaKeluarga(Request $request) {
         $validator = Validator::make($request->all(), [
             'namaKepalaKeluarga' => 'required',
+            'noKK' => 'required|numeric',
             'telepon' => 'numeric',
             'noRumah' => 'required|numeric',
             'statusRumah' => 'required',
@@ -34,6 +35,7 @@ class MasterController extends Controller
             $store = array (
                 'rt_rw' => 1,
                 'nama_kepala_keluarga' => $request->input('namaKepalaKeluarga'),
+                'no_kk' => intval($request->input('noKK')),
                 'telepon' => $request->input('telepon'),
                 'no_rumah' => $request->input('noRumah'),
                 'status_rumah' => $request->input('statusRumah'),
@@ -87,9 +89,12 @@ class MasterController extends Controller
         foreach ($request->input('dataWarga', array()) as $warga) {
             $storeArray = array (
                 'kepala_keluarga' => intval($warga['kepalaKeluarga']),
+                'agama' => $warga['agama'],
                 'no_ktp' => $warga['noKtp'],
                 'nama_lengkap' => $warga['namaLengkap'],
                 'jenis_kelamin' => intval($warga['jk']),
+                'tempat_lahir' => $warga['tempatLahir'],
+                'tanggal_lahir' => $warga['tanggalLahir'],
                 'status_warga' => $warga['status'],
                 'pekerjaan' => $warga['pekerjaan'],
                 'penghasilan' => intval(str_replace( ',', '', $warga['penghasilan'])),
