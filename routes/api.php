@@ -92,4 +92,16 @@ $router->group(
             $router->get('/getrow/{tab}/{id}', 'DocumentController@getDocumentID');
         }
     );
+
+    //Pengumuman
+    $router->group(
+        [
+            'prefix' => 'anouncement'
+        ],
+        function ($router) {
+            $router->post('/insert', 'PengumumanController@insertPengumuman');
+            $router->get('/get', 'PengumumanController@getPengumumanAll');
+            $router->get('/get/{id}', 'PengumumanController@getPengumumanID');
+        }
+    );
 });
