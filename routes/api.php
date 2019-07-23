@@ -104,4 +104,17 @@ $router->group(
             $router->get('/get/{id}', 'PengumumanController@getPengumumanID');
         }
     );
+
+    //Pengumuman
+    $router->group(
+        [
+            'prefix' => 'siskamling'
+        ],
+        function ($router) {
+            $router->post('/insert', 'SiskamlingController@insertSiskamling');
+            $router->get('/get', 'SiskamlingController@getSiskamling');
+            $router->post('/insertDetail', 'SiskamlingController@insertSiskmalingDetail');
+            $router->get('/get/{id}', 'SiskamlingController@getSiskamlingID');
+        }
+    );
 });
