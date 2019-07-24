@@ -99,4 +99,15 @@ class SiskamlingController extends Controller
         return $result;
     }
 
+    public function getSiskamlingIDSingle($id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = SiskamlingModel::getSiskamlingId($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }   
+
 }

@@ -105,7 +105,7 @@ $router->group(
         }
     );
 
-    //Pengumuman
+    //Siskamling
     $router->group(
         [
             'prefix' => 'siskamling'
@@ -113,8 +113,20 @@ $router->group(
         function ($router) {
             $router->post('/insert', 'SiskamlingController@insertSiskamling');
             $router->get('/get', 'SiskamlingController@getSiskamling');
+            $router->get('/getsiskamling/{id}', 'SiskamlingController@getSiskamlingIDSingle');
             $router->post('/insertDetail', 'SiskamlingController@insertSiskmalingDetail');
             $router->get('/get/{id}', 'SiskamlingController@getSiskamlingID');
+        }
+    );
+
+    $router->group(
+        [
+            'prefix' => 'anggaran'
+        ],
+        function ($router) {
+            $router->post('/insertdatatetap', 'AnggaranController@insertDanaTetap');
+            $router->get('/getdanatetap', 'AnggaranController@getDanaTetap');
+            $router->post('/insertpengeluarandatatetap', 'AnggaranController@insertPengeluaranDanaTetap');
         }
     );
 });

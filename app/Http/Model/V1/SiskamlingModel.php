@@ -19,6 +19,11 @@ class SiskamlingModel extends Model
         return $response;
     }
 
+    public static function getSiskamlingId($id) {
+        $response = DB::table('siskamling')->where('id', $id)->first();
+        return $response;
+    }
+
     public static function insertSiskamlingDetail($request) {
         $response = DB::table('personel_siskamling')
                 ->insert($request);
@@ -28,8 +33,9 @@ class SiskamlingModel extends Model
 
     public static function getSiskamlingDetail($id) {
         $response = DB::table('siskamling')
-            ->select('siskamling.tgl_siskamling', 'personel_siskamling.*')
+            ->select('siskamling.tgl_siskamling', 'warga.nama_lengkap', 'personel_siskamling.*')
             ->join('personel_siskamling', 'siskamling.id', '=', 'personel_siskamling.id_siskamling')
+            ->join('warga', 'personel_siskamling.warga', '=', 'warga.id')
             ->where('siskamling.id', $id)
             ->get();
         return $response;
