@@ -76,6 +76,17 @@ class RetribusiController extends Controller
         return $result;
     }
 
+    public function allGetRetribusiKebersihanID($id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = RetribusiModel::getAllDataRetribusiKebersihanID($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
     public function insertRetribusiKeamanan(Request $request) {
         $validator = Validator::make($request->all(), [
             'kepalaKeluarga' => 'required',
@@ -128,6 +139,17 @@ class RetribusiController extends Controller
     public function getRetribusiKeamananID($id) {
         $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
         $response = RetribusiModel::getDataRetribusiKeamananID($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function allGetRetribusiKeamananID($id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = RetribusiModel::getAllDataRetribusiKeamananID($id);
         
         $status = true;
         $message = count($response) . ' Data Ditemukan';

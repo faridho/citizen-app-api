@@ -30,4 +30,13 @@ class TemporaryModel extends Model
             ->first();
         return $response;
     }
+
+    public static function getAllTemporaryDetail($id) {
+        $response = DB::table('warga_temporary')
+            ->select('kepala_keluarga.nama_kepala_keluarga', 'warga_temporary.*')
+            ->join('kepala_keluarga', 'warga_temporary.pemilik_tempat', '=', 'kepala_keluarga.id')
+            ->where('warga_temporary.pemilik_tempat', $id)
+            ->get();
+        return $response;
+    }
 }

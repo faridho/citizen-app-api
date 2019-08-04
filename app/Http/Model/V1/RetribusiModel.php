@@ -46,12 +46,30 @@ class RetribusiModel extends Model
         return $response;
     }
 
+    public static function getAllDataRetribusiKebersihanID($id) {
+        $response = DB::table('retribusi_kebersihan')
+            ->select('kepala_keluarga.nama_kepala_keluarga', 'retribusi_kebersihan.*')
+            ->join('kepala_keluarga', 'retribusi_kebersihan.kepala_keluarga', '=', 'kepala_keluarga.id')
+            ->where('retribusi_kebersihan.kepala_keluarga', $id)
+            ->get();
+        return $response;
+    }
+
     public static function getDataRetribusiKeamananID($id) {
         $response = DB::table('retribusi_keamanan')
             ->select('kepala_keluarga.nama_kepala_keluarga', 'retribusi_keamanan.*')
             ->join('kepala_keluarga', 'retribusi_keamanan.kepala_keluarga', '=', 'kepala_keluarga.id')
             ->where('retribusi_keamanan.id', $id)
             ->first();
+        return $response;
+    }
+
+    public static function getAllDataRetribusiKeamananID($id) {
+        $response = DB::table('retribusi_keamanan')
+            ->select('kepala_keluarga.nama_kepala_keluarga', 'retribusi_keamanan.*')
+            ->join('kepala_keluarga', 'retribusi_keamanan.kepala_keluarga', '=', 'kepala_keluarga.id')
+            ->where('retribusi_keamanan.kepala_keluarga', $id)
+            ->get();
         return $response;
     }
 }

@@ -97,4 +97,15 @@ class TemporaryController extends Controller
         $result = RT::getReturn($status, $message, $response);
         return $result;
     }
+
+    public function allGetTemporary($id){
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = TemporaryModel::getAllTemporaryDetail($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
 }

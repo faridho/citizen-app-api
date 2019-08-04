@@ -83,7 +83,7 @@ class DocumentController extends Controller
         $result = RT::getReturn($status, $message, $response);
         return $result;
     }
-
+    
     public function getDocumentID($tab, $id) {
         $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
 
@@ -91,6 +91,22 @@ class DocumentController extends Controller
             $response = DocumentModel::getdocumentWargaID($id);
         }else {
             $response = DocumentModel::getdocumentWargaTempID($id);
+        }
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function allGetDocumentID($tab, $id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+
+        if($tab == '0') {
+            $response = DocumentModel::getdocumentWargaAllID($id);
+        }else {
+            $response = DocumentModel::getdocumentWargaAllTempID($id);
         }
         
         $status = true;

@@ -26,6 +26,13 @@ class MasterModel extends Model
         return $response;
     }
 
+    public static function getAllID($id) {
+        $response = DB::table('kepala_keluarga')
+            ->where('id', $id)
+            ->get();
+        return $response;
+    }
+
     public static function insertWarga($request) {
         $response = DB::table('warga')
                 ->insert($request);
@@ -47,6 +54,15 @@ class MasterModel extends Model
             ->join('kepala_keluarga', 'warga.kepala_keluarga', '=', 'kepala_keluarga.id')
             ->where('warga.id', $id)
             ->first();
+        return $response;
+    }
+
+    public static function getWargaAllID($id) {
+        $response = DB::table('warga')
+            ->select('kepala_keluarga.nama_kepala_keluarga', 'warga.*')
+            ->join('kepala_keluarga', 'warga.kepala_keluarga', '=', 'kepala_keluarga.id')
+            ->where('kepala_keluarga.id', $id)
+            ->get();
         return $response;
     }
 

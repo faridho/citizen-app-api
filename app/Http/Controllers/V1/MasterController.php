@@ -19,6 +19,8 @@ class MasterController extends Controller
     public function insertKepalaKeluarga(Request $request) {
         $validator = Validator::make($request->all(), [
             'namaKepalaKeluarga' => 'required',
+            'kodeWarga' => 'required',
+            'password' => 'required',
             'noKK' => 'required|numeric',
             'telepon' => 'numeric',
             'noRumah' => 'required|numeric',
@@ -35,6 +37,8 @@ class MasterController extends Controller
             $store = array (
                 'rt_rw' => 1,
                 'nama_kepala_keluarga' => $request->input('namaKepalaKeluarga'),
+                'kode_warga' => $request->input('kodeWarga'),
+                'password' => $request->input('password'),
                 'no_kk' => intval($request->input('noKK')),
                 'telepon' => $request->input('telepon'),
                 'no_rumah' => $request->input('noRumah'),
@@ -76,6 +80,17 @@ class MasterController extends Controller
     public function getKepalaKeluargaID($id) {
         $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
         $response = MasterModel::getID($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function allGetKepalaKeluargaID($id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = MasterModel::getAllID($id);
         
         $status = true;
         $message = count($response) . ' Data Ditemukan';
@@ -128,6 +143,17 @@ class MasterController extends Controller
     public function getWargaID($id) {
         $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
         $response = MasterModel::getWargaID($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function allGetWargaID($id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = MasterModel::getWargaAllID($id);
         
         $status = true;
         $message = count($response) . ' Data Ditemukan';

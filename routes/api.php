@@ -34,7 +34,6 @@ $router->group(
             'prefix' => 'auth'
         ],
         function ($router) {
-            $router->get('/getall', 'AuthController@getAll');
             $router->post('/login', 'AuthController@getLogin');
         }
     );
@@ -48,9 +47,11 @@ $router->group(
             $router->post('/insertkepalakeluarga', 'MasterController@insertKepalaKeluarga');
             $router->get('/datakepalakeluarga', 'MasterController@getKepalaKeluarga');
             $router->get('/datakepalakeluarga/{id}', 'MasterController@getKepalaKeluargaID');
+            $router->get('/alldatakepalakeluarga/{id}', 'MasterController@allGetKepalaKeluargaID');
             $router->post('/insertwarga', 'MasterController@insertWarga');
             $router->get('/datawarga', 'MasterController@getWarga');
             $router->get('/datawarga/{id}', 'MasterController@getWargaID');
+            $router->get('/alldatawarga/{id}', 'MasterController@allGetWargaID');
         }
     );
 
@@ -63,9 +64,11 @@ $router->group(
             $router->post('/kebersihan', 'RetribusiController@insertRetribusiKebersihan');
             $router->get('/kebersihan', 'RetribusiController@getRetribusiKebersihan');
             $router->get('/kebersihan/{id}', 'RetribusiController@getRetribusiKebersihanID');
+            $router->get('/allkebersihan/{id}', 'RetribusiController@allGetRetribusiKebersihanID');
             $router->post('/keamanan', 'RetribusiController@insertRetribusiKeamanan');
             $router->get('/keamanan', 'RetribusiController@getRetribusiKeamanan');
             $router->get('/keamanan/{id}', 'RetribusiController@getRetribusiKeamananID');
+            $router->get('/allkeamanan/{id}', 'RetribusiController@allGetRetribusiKeamananID');
         }
     );
 
@@ -77,7 +80,9 @@ $router->group(
         function ($router) {
             $router->post('/insert', 'TemporaryController@insertTemporary');
             $router->get('/get', 'TemporaryController@getTemporary');
+            $router->get('/getall/{id}', 'TemporaryController@allGetTemporary');
             $router->get('/get/{id}', 'TemporaryController@getTemporaryDetail');
+            
         }
     );
 
@@ -89,6 +94,7 @@ $router->group(
         function ($router) {
             $router->post('/insert', 'DocumentController@insertDocument');
             $router->get('/getall/{id}', 'DocumentController@getDocumentAll');
+            $router->get('/getllmaster/{tab}/{id}', 'DocumentController@allGetDocumentID');
             $router->get('/getrow/{tab}/{id}', 'DocumentController@getDocumentID');
         }
     );
@@ -127,6 +133,21 @@ $router->group(
             $router->post('/insertdatatetap', 'AnggaranController@insertDanaTetap');
             $router->get('/getdanatetap', 'AnggaranController@getDanaTetap');
             $router->post('/insertpengeluarandatatetap', 'AnggaranController@insertPengeluaranDanaTetap');
+        }
+    );
+
+    $router->group(
+        [
+            'prefix' => 'dashboard'
+        ],
+        function ($router) {
+            $router->post('/login', 'DashboardController@login');
+            $router->get('/kepalakeluarga', 'DashboardController@getKepalaKeluarga');
+            $router->get('/warga/{id}', 'DashboardController@getWarga');
+
+            $router->get('/genderchart', 'DashboardController@getGenderChart');
+            $router->get('/agechart', 'DashboardController@getAgeChart');
+            $router->get('/jobchart', 'DashboardController@getJobChart');
         }
     );
 });

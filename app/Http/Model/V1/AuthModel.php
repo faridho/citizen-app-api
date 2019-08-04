@@ -7,16 +7,11 @@ use DB;
 
 class AuthModel extends Model
 {
-    public static function getAll() {
-        $response = DB::table('rt_rw')->select('nama_pengguna', 'nama_lengkap')->get();
-        return $response;
-    }
-
-    public static function getLogin($username, $password) {
-        $response = DB::table('rt_rw')
-            ->select('nama_pengguna', 'nama_lengkap')
-            ->where('nama_pengguna', $username)
-            ->where('kata_kunci', $password)
+    public static function getLogin($kode_warga, $password) {
+        $response = DB::table('kepala_keluarga')
+            ->select('*')
+            ->where('kode_warga', $kode_warga)
+            ->where('password', $password)
             ->first();
         
         return $response;

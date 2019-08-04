@@ -17,26 +17,9 @@ class AuthController extends Controller
         $this->code = $code;
     }
 
-    public function getAll() {
-        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
-        $response = AuthModel::getAll();
-        
-        $countData = count($response);
-        if($countData > 0) {
-            $status = true;;
-            $message = count($response) . ' Data Ditemukan';
-        }else {
-            $message = 'Data Tidak Ditemukan';
-        }
-
-        $result = RT::getReturn($status, $message, $response);
-        
-        return $result;
-    }
-
     public function getLogin(Request $request) {
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
+            'kodeWarga' => 'required',
             'password' => 'required',
         ]);
 
@@ -46,16 +29,16 @@ class AuthController extends Controller
             $response = null;
             $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
         }else{
-            $username = $request->input('username');
+            $kodeWarga = $request->input('kodeWarga');
             $password = $request->input('password');
 
-            $response = AuthModel::getLogin($username, $password);
+            $response = AuthModel::getLogin($kodeWarga, $password);
             if($response) {
                 $status = true;
                 $message = 'Login Berhasil';
             }else{
                 $status = false;
-                $message = 'Login Gagal. Cek Username & Password Anda';
+                $message = 'Login Gagal. Cek Kode Warga & Password Anda';
             }
 
             $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
