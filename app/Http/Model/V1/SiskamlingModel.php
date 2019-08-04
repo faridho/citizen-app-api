@@ -45,4 +45,15 @@ class SiskamlingModel extends Model
             ->get();
         return $response;
     }
+
+    public static function getSiskamlingDetailMy($id, $my) {
+        $response = DB::table('siskamling')
+            ->select('siskamling.tgl_siskamling', 'warga.nama_lengkap', 'personel_siskamling.*')
+            ->join('personel_siskamling', 'siskamling.id', '=', 'personel_siskamling.id_siskamling')
+            ->join('warga', 'personel_siskamling.warga', '=', 'warga.id')
+            ->where('siskamling.id', $id)
+            ->where('personel_siskamling.warga', $my)
+            ->get();
+        return $response;
+    }
 }

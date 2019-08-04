@@ -122,7 +122,7 @@ $router->group(
             $router->get('/getsiskamling/{id}', 'SiskamlingController@getSiskamlingIDSingle');
             $router->post('/insertDetail', 'SiskamlingController@insertSiskmalingDetail');
             $router->get('/get/{id}', 'SiskamlingController@getSiskamlingID');
-
+            $router->get('/getmy/{id}/{profile}', 'SiskamlingController@getSiskamlingMyID');
             $router->get('/getreport/{id}', 'SiskamlingController@getSiskamlingReport');
         }
     );
