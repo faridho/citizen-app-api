@@ -101,4 +101,81 @@ class DashboardController extends Controller
         $result = RT::getReturn($status, $message, $response);
         return $result;
     }
+
+    public function getReligionChart() {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = DashboardModel::getReligionChart();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getWargaTemp($id) {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = DashboardModel::getWargaTemp($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getGenderChartTemp() {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = DashboardModel::getGenderChartTemp();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getAgeChartTemp() {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = DashboardModel::getAgeChartTemp();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getJobChartTemp() {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = DashboardModel::getJobChartTemp();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getReligionChartTemp() {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = DashboardModel::getReligionChartTemp();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getTypePlaceChartTemp() {
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = DashboardModel::getTypePlaceChartTemp();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
 }

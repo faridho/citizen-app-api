@@ -122,6 +122,8 @@ $router->group(
             $router->get('/getsiskamling/{id}', 'SiskamlingController@getSiskamlingIDSingle');
             $router->post('/insertDetail', 'SiskamlingController@insertSiskmalingDetail');
             $router->get('/get/{id}', 'SiskamlingController@getSiskamlingID');
+
+            $router->get('/getreport/{id}', 'SiskamlingController@getSiskamlingReport');
         }
     );
 
@@ -148,6 +150,14 @@ $router->group(
             $router->get('/genderchart', 'DashboardController@getGenderChart');
             $router->get('/agechart', 'DashboardController@getAgeChart');
             $router->get('/jobchart', 'DashboardController@getJobChart');
+            $router->get('/religionchart', 'DashboardController@getReligionChart');
+
+            $router->get('/wargatemp/{id}', 'DashboardController@getWargaTemp');
+            $router->get('/gendercharttemp', 'DashboardController@getGenderChartTemp');
+            $router->get('/agecharttemp', 'DashboardController@getAgeChartTemp');
+            $router->get('/jobcharttemp', 'DashboardController@getJobChartTemp');
+            $router->get('/religioncharttemp', 'DashboardController@getReligionChartTemp');
+            $router->get('/typeplacecharttemp', 'DashboardController@getTypePlaceChartTemp');
         }
     );
 });

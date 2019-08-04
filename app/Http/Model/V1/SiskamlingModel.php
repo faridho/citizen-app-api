@@ -24,6 +24,11 @@ class SiskamlingModel extends Model
         return $response;
     }
 
+    public static function getSiskamlingReport($id) {
+        $response = DB::table('laporan_siskamling')->where('id_siskamling', $id)->get();
+        return $response;
+    }
+
     public static function insertSiskamlingDetail($request) {
         $response = DB::table('personel_siskamling')
                 ->insert($request);
