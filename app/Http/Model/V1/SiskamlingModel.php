@@ -56,4 +56,21 @@ class SiskamlingModel extends Model
             ->get();
         return $response;
     }
+
+    public static function updateKetersediaanSiap($status, $id) {
+      $response = DB::table('personel_siskamling')->where('id', $id)->update($status);
+        return $response;
+    }
+
+    public static function updateKetersediaanTidakSiap($status, $id) {
+      $response = DB::table('personel_siskamling')->where('id', $id)->update($status);
+        return $response;
+    }
+
+    public static function insertReport($request) {
+      $response = DB::table('laporan_siskamling')
+                ->insert($request);
+
+        return $response;
+    }
 }

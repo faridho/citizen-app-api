@@ -132,4 +132,62 @@ class SiskamlingController extends Controller
         return $result;
     }
 
+    public function updateketersediaan(Request $request) {
+      
+      if($request->input('status') == 'Siap') {
+        $status = array(
+          'status_warga' => 'Tidak Siap'
+        );
+        $dataStore = SiskamlingModel::updateKetersediaanSiap($status, $request->input('id'));
+      }else {
+        $status = array(
+          'status_warga' => 'Siap'
+        );
+        $dataStore = SiskamlingModel::updateKetersediaanTidakSiap($status, $request->input('id'));
+      }
+
+      if($dataStore) {
+        $status = true;
+        $message = 'Status Berhasil Dilaporkan';
+        $response = null;
+
+        $result = RT::getReturn($status, $message, $response);
+      } else {
+        $status = true;
+        $message = 'Status Gagal Dilaporkan';
+        $response = null;
+
+        $result = RT::getReturn($status, $message, $response);
+      }
+      return $result;
+    }
+
+    public function insertreport(Request $request) {
+      $store = array (
+          'id_siskamling' => $request->input('idSiskamling'),
+          'isi_laporan' => $request->input('isiLaporan'),
+          'status_siskamling' => $request->input('statusLaporan'),
+          'status' => 1
+      );
+      
+      $request = SiskamlingModel::insertReport($store);
+      if($request) {
+          $status = true;
+          $message = 'Laporan Berhasil';
+          $response = null;
+          $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+
+          $result = RT::getReturn($status, $message, $response);
+      }else {
+          $status = false;
+          $message = 'Laporan Gagal';
+          $response = null;
+          $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+
+          $result = RT::getReturn($status, $message, $response);
+      }
+
+      return $result;
+    }
+
 }

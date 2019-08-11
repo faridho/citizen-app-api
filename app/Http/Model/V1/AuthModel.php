@@ -16,4 +16,14 @@ class AuthModel extends Model
         
         return $response;
     }
+
+    public static function getLoginLeader($username, $password) {
+      $response = DB::table('rt_rw')
+          ->select('*')
+          ->where('nama_pengguna', $username)
+          ->where('kata_kunci', $password)
+          ->first();
+      
+      return $response;
+  }
 }

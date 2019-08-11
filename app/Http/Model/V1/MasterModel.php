@@ -33,6 +33,20 @@ class MasterModel extends Model
         return $response;
     }
 
+    public static function cekKode($id) {
+      $response = DB::table('kode_warga')
+          ->where('kode', $id)
+          ->get();
+      return $response;
+    }
+
+    public static function cekKodeWarga($id) {
+      $response = DB::table('kepala_keluarga')
+          ->where('kode_warga', $id)
+          ->get();
+      return $response;
+    }
+
     public static function insertWarga($request) {
         $response = DB::table('warga')
                 ->insert($request);
@@ -64,6 +78,22 @@ class MasterModel extends Model
             ->where('kepala_keluarga.id', $id)
             ->get();
         return $response;
+    }
+
+    public static function updateKepalaKeluarga($request, $id) {
+      $response = DB::table('kepala_keluarga')
+              ->where('id', $id)
+              ->update($request);
+
+      return $response;
+    }
+
+    public static function updateWarga($request, $id) {
+      $response = DB::table('warga')
+              ->where('id', $id)
+              ->update($request);
+
+      return $response;
     }
 
 }

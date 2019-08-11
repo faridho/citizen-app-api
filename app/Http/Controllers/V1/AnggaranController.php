@@ -18,8 +18,8 @@ class AnggaranController extends Controller
 
     public function insertDanaTetap(Request $request) {
         $validator = Validator::make($request->all(), [
-            'jumlahDana' => 'required',
-            'tglPencairan' => 'required'
+            'jumlahPengeluaran' => 'required',
+            'keterangan' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -28,8 +28,8 @@ class AnggaranController extends Controller
             $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
         }else{
             $store = array (
-                'jumlah_dana' => intval($request->input('jumlahDana')),
-                'tgl_pencairan' => $request->input('tglPencairan'),
+                'jumlah_pengeluaran' => intval($request->input('jumlahPengeluaran')),
+                'keterangan' => $request->input('keterangan'),
                 'rt_rw' => 1,
                 'status' => 1
             );
@@ -54,6 +54,17 @@ class AnggaranController extends Controller
     public function getDanaTetap() {
         $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
         $response = AnggaranModel::getDanaAnggaran();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function getDanaTetapID($id) {
+      $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = AnggaranModel::getDanaAnggaranID($id);
 
         $status = true;
         $message = count($response) . ' Data Ditemukan';

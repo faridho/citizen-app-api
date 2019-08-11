@@ -47,4 +47,35 @@ class AuthController extends Controller
         $result = RT::getReturn($status, $message, $response);
         return $result;
     }
+
+    public function getLoginLeader(Request $request) {
+      $validator = Validator::make($request->all(), [
+        'username' => 'required',
+        'password' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+        $status = 'Validasi';
+        $message = $validator->messages();
+        $response = null;
+        $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+    }else{
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        $response = AuthModel::getLoginLeader($username, $password);
+        if($response) {
+            $status = true;
+            $message = 'Login Berhasil';
+        }else{
+            $status = false;
+            $message = 'Login Gagal. Cek Username & Password Anda';
+        }
+
+        $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+    }
+
+    $result = RT::getReturn($status, $message, $response);
+    return $result;
+    }
 }

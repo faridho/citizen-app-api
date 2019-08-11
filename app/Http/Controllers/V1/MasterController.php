@@ -34,31 +34,44 @@ class MasterController extends Controller
             $message = $validator->messages();
             $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
         }else{
-            $store = array (
-                'rt_rw' => 1,
-                'nama_kepala_keluarga' => $request->input('namaKepalaKeluarga'),
-                'kode_warga' => $request->input('kodeWarga'),
-                'password' => $request->input('password'),
-                'no_kk' => intval($request->input('noKK')),
-                'telepon' => $request->input('telepon'),
-                'no_rumah' => $request->input('noRumah'),
-                'status_rumah' => $request->input('statusRumah'),
-                'pekerjaan' => $request->input('pekerjaan'),
-                'penghasilan' => $request->input('penghasilan'),
-                'status' => 1
-            );
-            
-            $request = MasterModel::insertData($store);
-            if($request) {
-                $status = true;
-                $message = 'Mendaftarkan Kepala Keluarga Berhasil';
-                $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
-            }else {
-                $status = false;
-                $message = 'Gagal Mendaftarkan Kepala Keluarga';
-                $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+          $cekKode = MasterModel::cekKode($request->input('kodeWarga'));
+          if(count($cekKode) == 0) {
+            $status = false;
+            $message = 'Kode Warga Tidak Terdaftar';
+            $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+          }else {
+            $cek = MasterModel::cekKodeWarga($request->input('kodeWarga'));
+            if(count($cek) > 0) {
+              $status = false;
+              $message = 'Kode Warga Sudah Terdaftar';
+              $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+            } else {
+              $store = array (
+                  'rt_rw' => 1,
+                  'nama_kepala_keluarga' => $request->input('namaKepalaKeluarga'),
+                  'kode_warga' => $request->input('kodeWarga'),
+                  'password' => $request->input('password'),
+                  'no_kk' => intval($request->input('noKK')),
+                  'telepon' => $request->input('telepon'),
+                  'no_rumah' => $request->input('noRumah'),
+                  'status_rumah' => $request->input('statusRumah'),
+                  'pekerjaan' => $request->input('pekerjaan'),
+                  'penghasilan' => $request->input('penghasilan'),
+                  'status' => 1
+              );
+              
+              $request = MasterModel::insertData($store);
+              if($request) {
+                  $status = true;
+                  $message = 'Mendaftarkan Kepala Keluarga Berhasil';
+                  $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+              }else {
+                  $status = false;
+                  $message = 'Gagal Mendaftarkan Kepala Keluarga';
+                  $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+              }
             }
-
+          }
         }
 
         $response = null;
@@ -161,4 +174,83 @@ class MasterController extends Controller
         $result = RT::getReturn($status, $message, $response);
         return $result;
     }
+
+    public function updateKepalKeluarga(Request $request) {
+      $validator = Validator::make($request->all(), [
+          'id' => 'required',
+          'namaKepalaKeluarga' => 'required',
+          'password' => 'required',
+          'noKK' => 'required|numeric',
+          'telepon' => 'numeric',
+          'noRumah' => 'required|numeric',
+          'statusRumah' => 'required',
+          'pekerjaan' => 'required',
+          'penghasilan' => 'numeric',
+      ]);
+
+      if ($validator->fails()) {
+          $status = 'Validasi';
+          $message = $validator->messages();
+          $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+      }else{
+        $store = array (
+            'nama_kepala_keluarga' => $request->input('namaKepalaKeluarga'),
+            'password' => $request->input('password'),
+            'no_kk' => intval($request->input('noKK')),
+            'telepon' => $request->input('telepon'),
+            'no_rumah' => $request->input('noRumah'),
+            'status_rumah' => $request->input('statusRumah'),
+            'pekerjaan' => $request->input('pekerjaan'),
+            'penghasilan' => $request->input('penghasilan'),
+        );
+        
+        $request = MasterModel::updateKepalaKeluarga($store, $request->input('id'));
+        if($request) {
+            $status = true;
+            $message = 'Update Kepala Keluarga Berhasil';
+            $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        }else {
+            $status = false;
+            $message = 'Gagal Update Kepala Keluarga';
+            $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+        }
+      }
+
+      $response = null;
+      $result = RT::getReturn($status, $message, $response);
+      return $result;
+  } 
+
+  public function updateWarga(Request $request) {
+    $storeArray = array (
+        'id' => $request->input('id'),
+        'agama' => $request->input('agama'),
+        'no_ktp' => $request->input('noKtp'),
+        'nama_lengkap' => $request->input('namaLengkap'),
+        'jenis_kelamin' => $request->input('jk'),
+        'tempat_lahir' => $request->input('tempatLahir'),
+        'tanggal_lahir' => $request->input('tanggalLahir'),
+        'status_warga' => $request->input('status'),
+        'pekerjaan' => $request->input('pekerjaan'),
+        'penghasilan' => intval(str_replace( ',', '', $request->input('penghasilan'))),
+    );
+
+    $dataStore = MasterModel::updateWarga($storeArray, $request->input('id'));
+  
+    $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+    if($dataStore) {
+      $status = true;
+      $message = 'Data Warga Berhasil Disimpan';
+      $response = null;
+
+      $result = RT::getReturn($status, $message, $response);
+    } else {
+      $status = true;
+      $message = 'Data Warga Gagal Disimpan';
+      $response = null;
+
+      $result = RT::getReturn($status, $message, $response);
+    }
+    return $result;
+  }
 }

@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\V1\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\ResponseHelper;
 
 class HelloAPIController extends Controller
 {
-    use Api;
-    
+   
     private function setDefaultResponse( $code = 0 , $success_value = false) {
         $this->success = $success_value;
         $this->code = $code;

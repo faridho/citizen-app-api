@@ -35,6 +35,7 @@ $router->group(
         ],
         function ($router) {
             $router->post('/login', 'AuthController@getLogin');
+            $router->post('/loginleader', 'AuthController@getLoginLeader');
         }
     );
 
@@ -52,6 +53,8 @@ $router->group(
             $router->get('/datawarga', 'MasterController@getWarga');
             $router->get('/datawarga/{id}', 'MasterController@getWargaID');
             $router->get('/alldatawarga/{id}', 'MasterController@allGetWargaID');
+            $router->post('/updatekepalakeluarga', 'MasterController@updateKepalKeluarga');
+            $router->post('/updatewarga', 'MasterController@updateWarga');
         }
     );
 
@@ -124,6 +127,8 @@ $router->group(
             $router->get('/get/{id}', 'SiskamlingController@getSiskamlingID');
             $router->get('/getmy/{id}/{profile}', 'SiskamlingController@getSiskamlingMyID');
             $router->get('/getreport/{id}', 'SiskamlingController@getSiskamlingReport');
+            $router->post('/updateketersediaan', 'SiskamlingController@updateketersediaan');
+            $router->post('/insertreport', 'SiskamlingController@insertreport');
         }
     );
 
@@ -134,6 +139,7 @@ $router->group(
         function ($router) {
             $router->post('/insertdatatetap', 'AnggaranController@insertDanaTetap');
             $router->get('/getdanatetap', 'AnggaranController@getDanaTetap');
+            $router->get('/getdanatetap/{id}', 'AnggaranController@getDanaTetapID');
             $router->post('/insertpengeluarandatatetap', 'AnggaranController@insertPengeluaranDanaTetap');
         }
     );
