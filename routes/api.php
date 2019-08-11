@@ -55,6 +55,9 @@ $router->group(
             $router->get('/alldatawarga/{id}', 'MasterController@allGetWargaID');
             $router->post('/updatekepalakeluarga', 'MasterController@updateKepalKeluarga');
             $router->post('/updatewarga', 'MasterController@updateWarga');
+            $router->get('/kodewarga', 'MasterController@kodeWarga');
+            $router->get('/kodewarga/{id}', 'MasterController@kodeWargaID');
+            $router->post('/insertkode', 'MasterController@insertKode');
         }
     );
 

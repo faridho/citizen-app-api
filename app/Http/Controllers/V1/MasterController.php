@@ -90,9 +90,31 @@ class MasterController extends Controller
         return $result;
     }
 
+    public function kodeWarga() {
+      $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = MasterModel::kodeWarga();
+
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
     public function getKepalaKeluargaID($id) {
         $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
         $response = MasterModel::getID($id);
+        
+        $status = true;
+        $message = count($response) . ' Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
+    public function kodeWargaID($id) {
+      $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = MasterModel::kodeWargaID($id);
         
         $status = true;
         $message = count($response) . ' Data Ditemukan';
@@ -140,6 +162,30 @@ class MasterController extends Controller
 
         $result = RT::getReturn($status, $message, $response);
         return $result;
+    }
+
+    public function insertKode(Request $request) {
+      $store = array (
+          'nama_warga' => $request->input('namaWarga'),
+          'kode' => $request->input('kodeWarga'),
+          'status' => 1
+      );
+      
+      $request = MasterModel::insertKode($store);
+      if($request) {
+          $status = true;
+          $message = 'Mendaftarkan Kode Warga Berhasil';
+          $response = null;
+          $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+      }else {
+          $status = false;
+          $message = 'Gagal Mendaftarkan Kode Warga';
+          $response = null;
+          $this->setDefaultResponse(ResponseHelper::HTTP_BAD_REQUEST);
+      }
+
+      $result = RT::getReturn($status, $message, $response);
+      return $result;
     }
 
     public function getWarga() {

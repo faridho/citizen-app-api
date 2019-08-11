@@ -14,13 +14,32 @@ class MasterModel extends Model
         return $response;
     }
 
+    public static function insertKode($request) {
+      $response = DB::table('kode_warga')
+                ->insert($request);
+
+        return $response;
+    }
+
     public static function getData() {
         $response = DB::table('kepala_keluarga')->get();
         return $response;
     }
 
+    public static function kodeWarga() {
+      $response = DB::table('kode_warga')->get();
+      return $response;
+    }
+
     public static function getID($id) {
         $response = DB::table('kepala_keluarga')
+            ->where('id', $id)
+            ->first();
+        return $response;
+    }
+
+    public static function kodeWargaID($id) {
+      $response = DB::table('kode_warga')
             ->where('id', $id)
             ->first();
         return $response;
