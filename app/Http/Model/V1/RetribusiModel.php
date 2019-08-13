@@ -46,6 +46,42 @@ class RetribusiModel extends Model
         return $response;
     }
 
+    public static function getDataRetribusiKebersihanProfileCash($id) {
+      $response = DB::table('retribusi_kebersihan')
+            ->select('*')
+            ->where('kepala_keluarga', $id)
+            ->where('jenis_pembayaran', 'Cash')
+            ->get();
+        return $response;
+    }
+
+    public static function getDataRetribusiKebersihanProfileTransfer($id) {
+      $response = DB::table('retribusi_kebersihan')
+            ->select('*')
+            ->where('kepala_keluarga', $id)
+            ->where('jenis_pembayaran', 'Transfer')
+            ->get();
+        return $response;
+    }
+
+    public static function getDataRetribusiKeamananProfileCash($id) {
+      $response = DB::table('retribusi_keamanan')
+            ->select('*')
+            ->where('kepala_keluarga', $id)
+            ->where('jenis_pembayaran', 'Cash')
+            ->get();
+        return $response;
+    }
+
+    public static function getDataRetribusiKeamananProfileTransfer($id) {
+      $response = DB::table('retribusi_keamanan')
+            ->select('*')
+            ->where('kepala_keluarga', $id)
+            ->where('jenis_pembayaran', 'Transfer')
+            ->get();
+        return $response;
+    }
+
     public static function getAllDataRetribusiKebersihanID($id) {
         $response = DB::table('retribusi_kebersihan')
             ->select('kepala_keluarga.nama_kepala_keluarga', 'retribusi_kebersihan.*')

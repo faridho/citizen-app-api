@@ -75,6 +75,9 @@ $router->group(
             $router->get('/keamanan', 'RetribusiController@getRetribusiKeamanan');
             $router->get('/keamanan/{id}', 'RetribusiController@getRetribusiKeamananID');
             $router->get('/allkeamanan/{id}', 'RetribusiController@allGetRetribusiKeamananID');
+
+            $router->get('/kebersihanprofile/{id}/{type}', 'RetribusiController@getRetribusiKebersihanProfile');
+            $router->get('/keamananprofile/{id}/{type}', 'RetribusiController@getRetribusiKeamananProfile');
         }
     );
 
@@ -132,6 +135,7 @@ $router->group(
             $router->get('/getreport/{id}', 'SiskamlingController@getSiskamlingReport');
             $router->post('/updateketersediaan', 'SiskamlingController@updateketersediaan');
             $router->post('/insertreport', 'SiskamlingController@insertreport');
+            $router->get('/ceklaporan/{id}', 'SiskamlingController@cekSiskamling');
         }
     );
 

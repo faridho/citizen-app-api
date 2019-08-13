@@ -73,4 +73,9 @@ class SiskamlingModel extends Model
 
         return $response;
     }
+
+    public static function cekLaporan($id) {
+      $response = DB::table('laporan_siskamling')->where('id_siskamling', $id)->first();
+      return $response;
+  }
 }

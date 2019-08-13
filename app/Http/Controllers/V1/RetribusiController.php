@@ -33,6 +33,7 @@ class RetribusiController extends Controller
                 'kepala_keluarga' => intval($request->input('kepalaKeluarga')),
                 'bulan' => intval($request->input('bulan')),
                 'tahun' => intval($request->input('tahun')),
+                'jenis_pembayaran' => $request->input('jenisPembayaran'),
                 'nominal' => intval(str_replace( ',', '', $request->input('nominal'))),
                 'status' => 1
             );
@@ -76,6 +77,38 @@ class RetribusiController extends Controller
         return $result;
     }
 
+    public function getRetribusiKebersihanProfile($id, $type) {
+      $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+      if($type == 'cash') {
+        $response = RetribusiModel::getDataRetribusiKebersihanProfileCash($id);
+      }else {
+        $response = RetribusiModel::getDataRetribusiKebersihanProfileTransfer($id);
+      }
+      
+      
+      $status = true;
+      $message = count($response) . ' Data Ditemukan';
+
+      $result = RT::getReturn($status, $message, $response);
+      return $result;
+    }
+
+    public function getRetribusiKeamananProfile($id, $type) {
+      $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+      if($type == 'cash') {
+        $response = RetribusiModel::getDataRetribusiKeamananProfileCash($id);
+      }else {
+        $response = RetribusiModel::getDataRetribusiKeamananProfileTransfer($id);
+      }
+      
+      
+      $status = true;
+      $message = count($response) . ' Data Ditemukan';
+
+      $result = RT::getReturn($status, $message, $response);
+      return $result;
+    }
+
     public function allGetRetribusiKebersihanID($id) {
         $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
         $response = RetribusiModel::getAllDataRetribusiKebersihanID($id);
@@ -104,6 +137,7 @@ class RetribusiController extends Controller
                 'kepala_keluarga' => intval($request->input('kepalaKeluarga')),
                 'bulan' => intval($request->input('bulan')),
                 'tahun' => intval($request->input('tahun')),
+                'jenis_pembayaran' => $request->input('jenisPembayaran'),
                 'nominal' => intval(str_replace( ',', '', $request->input('nominal'))),
                 'status' => 1
             );

@@ -190,4 +190,15 @@ class SiskamlingController extends Controller
       return $result;
     }
 
+    public function cekSiskamling($id) {
+      $this->setDefaultResponse(ResponseHelper::HTTP_OK, true);
+        $response = SiskamlingModel::cekLaporan($id);
+        
+        $status = true;
+        $message = 'Data Ditemukan';
+
+        $result = RT::getReturn($status, $message, $response);
+        return $result;
+    }
+
 }
